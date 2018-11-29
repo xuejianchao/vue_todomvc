@@ -9,6 +9,9 @@ body {
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
 }
 
+input{
+  outline:none;
+}
 button {
   background: none;
   border: none;
@@ -16,8 +19,23 @@ button {
 }
 
 #todoApp {
+  position: relative;
   box-sizing: border-box;
-  margin: 130px 0 40px 0;
+  margin: 155px 0 40px 0;
+}
+
+#todoApp h1 {
+  position: absolute;
+  line-height: 0.5;
+  top: -155px;
+  width: 100%;
+  font-size: 100px;
+  font-weight: 100;
+  text-align: center;
+  color: rgba(175, 47, 47, 0.15);
+  -webkit-text-rendering: optimizeLegibility;
+  -moz-text-rendering: optimizeLegibility;
+  text-rendering: optimizeLegibility;
 }
 
 .new-todo {
@@ -28,6 +46,7 @@ button {
   font-size: 24px;
   line-height: 1.4em;
   /* 通过设置上下一样的padding来居中 */
+  background-color:#fefefe;
 }
 
 /* 占位符的样式要这么设置 */
@@ -45,6 +64,8 @@ input::-moz-placeholder {
 
 .main {
   position: relative;
+  background-color:#fff;
+  border-top: 1px solid #e6e6e6;
 }
 
 /* 全选按钮开始 */
@@ -72,7 +93,6 @@ input::-moz-placeholder {
 #toggle-all:checked+label:before {
   color: #737373;
 }
-
 /* 全选按钮结束 */
 
 #todo-list {
@@ -87,11 +107,13 @@ input::-moz-placeholder {
   font-size: 24px;
   width: 100%;
   height: auto;
+  background-color: rgba(255, 255, 255, 0.6);
+  color: #4d4d4d;
 }
 
 li.todo>div.view {
   display: flow-root;
-  background-color: rgba(255, 255, 255, .6);
+  border-bottom: 1px #ededed solid;
   position: relative;
 }
 
@@ -101,6 +123,10 @@ li.todo>div.view>.toggle {
   z-index: 2;
 
   position: absolute;
+  top: 0;
+  bottom: 0;
+
+  margin: auto 15px;
 
   height: 30px;
   width: 30px;
@@ -122,6 +148,7 @@ li.todo>div.view>.toggle+label {
 
   text-align: center;
   line-height: 30px;
+  font-size:90%;
 
   border: 0.5px solid #ccc;
   color: #ccc;
@@ -132,19 +159,15 @@ li.todo>div.view>.toggle:checked+label {
   color: #75cbbb;
   border-color: #75cbbb;
 }
-
 /* 切换状态的按钮结束 */
 
-li.todo>div.view {
-  border-bottom: 1px #ededed solid;
-}
-
 li.todo>div.view>p {
+  width: 100%;
   display: inline-block;
   padding: 16px 16px 16px 60px;
   margin: 0;
   vertical-align: middle;
-  color: #4d4d4d;
+  color: inherit;
   transition: color 0.4s;
 }
 
@@ -157,16 +180,28 @@ li.editing div.view {
   display: none;
 }
 
+/* 编辑框开始 */
 li .edit {
   display: none;
 }
 
 li.editing .edit {
   display: block;
-  height: 50px;
-  padding: 12px 16px;
-  border: 1px #ededed solid;
+
+  box-sizing: border-box;
+  width: calc(100% - 60px);
+  height: auto;
+  padding: 15px 16px;
+  margin: 0 0 0 60px;
+
+  font-size: inherit;
+  color: inherit;
+  background-color: rgba(255, 255, 255, 0.6);
+  border: 1px solid #999;
+  box-shadow: inset 0 -1px 5px 0 rgba(0, 0, 0, 0.2);
 }
+
+/* 编辑框结束 */
 
 button.destroy {
   display: none;
@@ -198,11 +233,16 @@ li.todo button.destroy:hover {
   padding: 10px 15px;
   height: 20px;
   text-align: center;
-  border-top: 1px solid #e6e6e6;
+  background-color: rgba(255,255,255, 0.6);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2),
+    0 8px 0 -3px #f6f6f6,
+    0 9px 1px -3px rgba(0, 0, 0, 0.2),
+    0 16px 0 -6px #f6f6f6,
+    0 17px 2px -6px rgba(0, 0, 0, 0.2);
 }
 
-#todoApp>footer>span{
-  float:left;
+#todoApp>footer>span {
+  float: left;
 }
 
 .filterButton {
@@ -211,8 +251,8 @@ li.todo button.destroy:hover {
 }
 
 .filterButton+label {
-  margin:0 6px;
-  padding:3px 7px;
+  margin: 0 6px;
+  padding: 3px 7px;
   border-radius: 3px;
   border: 1px solid rgba(175, 47, 47, 0);
 }
@@ -221,16 +261,15 @@ li.todo button.destroy:hover {
   border: 1px solid rgba(175, 47, 47, 0.1);
 }
 
-.filterButton:checked+label{
+.filterButton:checked+label {
   border: 1px solid rgba(175, 47, 47, 0.2);
 }
 
-.clearCompleted{
-  float:right;
-  cursor: pointer;
-  color: #777;  
+.clearCompleted {
+  float: right;
+  color: #777;
 }
 
 .clearCompleted:hover {
-	text-decoration: underline;
+  text-decoration: underline;
 }
