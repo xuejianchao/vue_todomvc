@@ -26,7 +26,7 @@
           <div class="view">
 
             <input class="toggle" id="" type="checkbox" v-model="todo.isCompleted">
-            <label for=".toggle">√</label>
+            <label for=".toggle"><span v-show="todo.isCompleted">√</span></label>
             
             <p v-on:dblclick="startEdit(todo)">{{todo.content}}</p>
             <button class="destroy" v-on:click="destroyTodo(todo)">×</button>
@@ -39,13 +39,15 @@
 
     <footer v-if="todos.length">
       <span><span>{{unCompleted}}</span> things left</span>
-      <input name="visibility" type="radio" id="All" v-model="visibility" value="all">
+
+      <input class="filterButton" name="visibility" type="radio" id="All" v-model="visibility" value="all">
       <label for="All">All</label>
-      <input name="visibility" type="radio" id="Active" v-model="visibility" value="active">
+      <input class="filterButton" name="visibility" type="radio" id="Active" v-model="visibility" value="active">
       <label for="Active">Active</label>
-      <input name="visibility" type="radio" id="Completed" v-model="visibility" value="completed">
+      <input class="filterButton" name="visibility" type="radio" id="Completed" v-model="visibility" value="completed">
       <label for="Completed">Completed</label>
-      <button v-if="completed" v-on:click="clearCompleted">Clear Completed</button>
+      
+      <button class="clearCompleted" v-if="completed" v-on:click="clearCompleted">Clear Completed</button>
     </footer>
   </div>
   <footer></footer>

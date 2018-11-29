@@ -1,9 +1,10 @@
 body {
+  font: 14px 'Helvetica Neue', Helvetica, Arial, sans-serif;
   background: #f5f5f5;
   padding: 0;
   /* 不设置宽度的话会占满整个空间 */
-  min-width:450px;
-  max-width:500px;
+  min-width: 450px;
+  max-width: 500px;
   margin: 0 auto;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
 }
@@ -19,57 +20,61 @@ button {
   margin: 130px 0 40px 0;
 }
 
-.new-todo{
+.new-todo {
   width: 100%;
   box-sizing: border-box;
-  border:none;
-  padding:16px 16px 16px 60px;
-  font-size:24px;
+  border: none;
+  padding: 16px 16px 16px 60px;
+  font-size: 24px;
   line-height: 1.4em;
   /* 通过设置上下一样的padding来居中 */
 }
 
 /* 占位符的样式要这么设置 */
-input::-webkit-input-placeholder{
+input::-webkit-input-placeholder {
   font-style: italic;
-	font-weight: 300;
-	color: #e6e6e6;
+  font-weight: 300;
+  color: #e6e6e6;
 }
 
-input::-moz-placeholder{
+input::-moz-placeholder {
   font-style: italic;
-	font-weight: 300;
-	color: #e6e6e6;
+  font-weight: 300;
+  color: #e6e6e6;
 }
 
-.main{
+.main {
   position: relative;
 }
 
 /* 全选按钮开始 */
-#toggle-all{
+#toggle-all {
   opacity: 0;
-  position:absolute;
-  border:none;
-}
-
-#toggle-all + label{
   position: absolute;
-  width:60px;
-  top:-65px;
-  left:0;
-  height:-65px;
+  border: none;
 }
 
-#toggle-all + label:before{
-  content:'❯';
-  color:#ccc;
+#toggle-all+label {
+  transform: rotate(90deg);
+  position: absolute;
+  width: 60px;
+  top: -18px;
+  left: 0;
 }
 
-#toggle-all:checked + label:before{
+#toggle-all+label:before {
+  content: '❯';
+  color: #ccc;
+  font-size: 22px;
+  line-height: 1;
+}
+
+#toggle-all:checked+label:before {
   color: #737373;
 }
+
 /* 全选按钮结束 */
+
 #todo-list {
   margin: 0;
   padding: 0;
@@ -92,49 +97,55 @@ li.todo>div.view {
 
 /* 切换状态的按钮开始 */
 li.todo>div.view>.toggle {
-  opacity:0;
-  z-index:2;
-  position:absolute;
-  top:15px;
-  left:10px;
-  height:30px;
-  width:30px;
-  background:none;
-}
-/* 有点偷懒啊,label只起到了画图的作用,因为没有给label加id,所以切换状态还是用的input元素 */
+  opacity: 0;
+  z-index: 2;
 
-li.todo>div.view>.toggle + label{
-  position:absolute;
-  top:15px;
-  left:10px;
-  height:30px;
-  width:30px;
+  position: absolute;
+
+  height: 30px;
+  width: 30px;
+  background: none;
+}
+
+/* 有点偷懒啊,label只起到了画图的作用,因为没有给label加id,所以切换状态还是用的input元素 */
+li.todo>div.view>.toggle+label {
+  /* ↓ 这个绝对定位配合margin,简直了 */
+  position: absolute;
+  top: 0;
+  bottom: 0;
+
+  margin: auto 15px;
+
+  display: inline-block;
+  height: 30px;
+  width: 30px;
 
   text-align: center;
-  font-size:90%;
+  line-height: 30px;
 
-  border:0.5px solid #ccc;
-  color:#ccc;
-  border-radius:50%;
+  border: 0.5px solid #ccc;
+  color: #ccc;
+  border-radius: 50%;
 }
 
-li.todo>div.view>.toggle:checked + label{
-  color:rgb(88, 252, 156);
-  border-color:rgb(88, 252, 156);
+li.todo>div.view>.toggle:checked+label {
+  color: #75cbbb;
+  border-color: #75cbbb;
 }
 
 /* 切换状态的按钮结束 */
 
-li.todo>div.view{
-  border-bottom: 1px #ededed solid;  
+li.todo>div.view {
+  border-bottom: 1px #ededed solid;
 }
 
 li.todo>div.view>p {
   display: inline-block;
   padding: 16px 16px 16px 60px;
-  margin:0;
+  margin: 0;
   vertical-align: middle;
-	transition: color 0.4s;
+  color: #4d4d4d;
+  transition: color 0.4s;
 }
 
 li.completed>div.view>p {
@@ -154,7 +165,7 @@ li.editing .edit {
   display: block;
   height: 50px;
   padding: 12px 16px;
-  border: 1px #ededed solid;  
+  border: 1px #ededed solid;
 }
 
 button.destroy {
@@ -167,7 +178,7 @@ button.destroy {
   /* 因为单行情况下,一个todo的高度为60,所以这样设置bottom和height就能居中 */
   font-size: 30px;
   border: none;
-  background-color:none;
+  background-color: none;
   color: #cc9a9a;
 }
 
@@ -178,4 +189,48 @@ li.todo:hover button.destroy {
 li.todo button.destroy:hover {
   color: #e07171;
 }
+
 /* 一个todo项 结束 */
+
+/* footer start*/
+#todoApp>footer {
+  color: #777;
+  padding: 10px 15px;
+  height: 20px;
+  text-align: center;
+  border-top: 1px solid #e6e6e6;
+}
+
+#todoApp>footer>span{
+  float:left;
+}
+
+.filterButton {
+  opacity: 0;
+  position: absolute;
+}
+
+.filterButton+label {
+  margin:0 6px;
+  padding:3px 7px;
+  border-radius: 3px;
+  border: 1px solid rgba(175, 47, 47, 0);
+}
+
+.filterButton+label:hover {
+  border: 1px solid rgba(175, 47, 47, 0.1);
+}
+
+.filterButton:checked+label{
+  border: 1px solid rgba(175, 47, 47, 0.2);
+}
+
+.clearCompleted{
+  float:right;
+  cursor: pointer;
+  color: #777;  
+}
+
+.clearCompleted:hover {
+	text-decoration: underline;
+}
