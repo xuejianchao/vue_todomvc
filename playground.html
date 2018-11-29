@@ -38,6 +38,22 @@
       color:"#ccc";
       text-decoration:line-through;
     }
+
+    .editing .view{
+      display: none;
+    }
+    
+    li .edit{
+      display:none;
+    }
+
+    li.editing .edit{
+      display:block;
+      height:50px;
+      padding:12px 16px;
+    }
+
+    
   </style>
 
   <script src="https://vuejs.org/js/vue.js"></script>
@@ -51,10 +67,15 @@
     <div>
       <input type="checkbox" v-model="allDone">
       <ul id="todo-list">
-        <li class="todo" v-bind:class="{completed: todo.isCompleted}" v-for="todo in filteredTodos">
-          <input class="completeButton" type="checkbox" v-model="todo.isCompleted">
-          <p>{{todo.content}}</p>
-          <button class="destroy" v-on:click="destroyTodo(todo)">删除</button>
+        <li class="todo" v-bind:class="{completed: todo.isCompleted, editing: editingTodo == todo}" v-for="todo in filteredTodos">
+          <div class="view">
+
+            <input class="completeButton" type="checkbox" v-model="todo.isCompleted">
+            <p v-on:dblclick="startEdit(todo)">{{todo.content}}</p>
+            <button class="destroy" v-on:click="destroyTodo(todo)">删除</button>
+
+          </div>
+          <input type="text" class="edit" v-on:keyup.enter="doneEdit(todo)" v-model="todo.content">
         </li>
       </ul>
     </div>
@@ -101,7 +122,8 @@
           }
         ],
         visibility: 'all',
-        newTodo: ''
+        newTodo: '',
+        editingTodo: null
       },
       computed: {
         completed: function () {
@@ -122,14 +144,14 @@
           }
           return unCompletedNum;
         },
-        allDone:{
+        allDone: {
           //这个alldone用的真是妙...
-          get:function(){
+          get: function () {
             return this.unCompleted === 0
             //没有未完成的,也就是全部完成了(alldone)
           },
-          set:function(value){
-            this.todos.forEach(function(todo){
+          set: function (value) {
+            this.todos.forEach(function (todo) {
               todo.isCompleted = value;
             })
           }
@@ -139,14 +161,24 @@
         }
       },
       methods: {
-        appendTodo:function(event){
+        startEdit: function (todo) {
+          this.editingTodo = todo;
+        },
+        doneEdit: function (todo) {
+          this.editingTodo = null;
+          todo.content = todo.content.trim();
+          if (!todo.content) {
+            destroyTodo(todo);
+          }
+        },
+        appendTodo: function (event) {
           let value = this.newTodo;
-          if(!value){
+          if (!value) {
             return;
           }
           this.todos.push({
-            isCompleted:false,
-            content:value
+            isCompleted: false,
+            content: value
           });
           this.newTodo = '';
         },

@@ -105,6 +105,7 @@ var app = new Vue({
       this.beforeEditCache = todo.title
       this.editedTodo = todo
     },
+    
     doneEdit: function (todo) {
       if (!this.editedTodo) {
         return
