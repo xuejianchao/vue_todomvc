@@ -274,7 +274,7 @@ li.todo button.destroy:hover {
 }
 
 .clearCompleted {
-  z-index:2;
+  position:relative;
   float: right;
   color: #777;
 }
