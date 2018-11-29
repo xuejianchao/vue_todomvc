@@ -105,6 +105,7 @@ var todoApp = new Vue({
   directives: {
     'todo-focus':function(el,binding){
       if(binding.value){
+        //bindinf.value就是这个指令的值得计算结果.
         el.focus();
       }
     }

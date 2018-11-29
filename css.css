@@ -229,10 +229,11 @@ li.todo button.destroy:hover {
 
 /* footer start*/
 #todoApp>footer {
-  color: #777;
+  position: relative;
   padding: 10px 15px;
   height: 20px;
   text-align: center;
+  color: #777;
   background-color: rgba(255,255,255, 0.6);
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2),
     0 8px 0 -3px #f6f6f6,
@@ -245,6 +246,12 @@ li.todo button.destroy:hover {
   float: left;
 }
 
+.filterButtonGroup{
+  position:absolute;
+  left:0;
+  right:0;
+}
+
 .filterButton {
   opacity: 0;
   position: absolute;
@@ -252,7 +259,7 @@ li.todo button.destroy:hover {
 
 .filterButton+label {
   margin: 0 6px;
-  padding: 3px 7px;
+  padding: 3px 5px;
   border-radius: 3px;
   border: 1px solid rgba(175, 47, 47, 0);
 }

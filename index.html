@@ -33,22 +33,26 @@
             <button class="destroy" v-on:click="destroyTodo(todo)">×</button>
 
           </div>
-          <input type="text" class="edit" v-on:keyup.enter="doneEdit(todo)" v-todo-focus="editingTodo == todo" v-model="todo.content" v-on:blur="dropEdit(todo)">
+          <input type="text" class="edit" v-on:keyup.enter="doneEdit(todo)" v-todo-focus="todo == editingTodo" v-model="todo.content"
+            v-on:blur="dropEdit(todo)">
+          <!-- 注意,@blur的处理器不能写dropedit,因为doneedit的执行过程中,input会失去焦点,就会触发blur事件. -->
+          <!-- 但是即使写成dropedit,开着devtool进行这个过程的话也会正常执行,奇了怪了 -->
         </li>
       </ul>
     </div>
 
     <footer v-if="todos.length">
-      <span><span>{{unCompleted}}</span> things left</span>
+      <span><span>{{unCompleted}}</span> thing<span v-if="this.unCompleted > 1">s</span> left</span>
 
-      <input class="filterButton" name="visibility" type="radio" id="All" v-model="visibility" value="all">
-      <label for="All">All</label>
-      <input class="filterButton" name="visibility" type="radio" id="Active" v-model="visibility" value="active">
-      <label for="Active">Active</label>
-      <input class="filterButton" name="visibility" type="radio" id="Completed" v-model="visibility" value="completed">
-      <label for="Completed">Completed</label>
-
-      <button class="clearCompleted" v-if="completed" v-on:click="clearCompleted">Clear Completed</button>
+      <div class="filterButtonGroup">
+        <input class="filterButton" name="visibility" type="radio" id="All" v-model="visibility" value="all">
+        <label for="All">All</label>
+        <input class="filterButton" name="visibility" type="radio" id="Active" v-model="visibility" value="active">
+        <label for="Active">Active</label>
+        <input class="filterButton" name="visibility" type="radio" id="Completed" v-model="visibility" value="completed">
+        <label for="Completed">Completed</label>
+      </div>
+      <button class="clearCompleted" v-show="completed" v-on:click="clearCompleted">Clear Completed</button>
     </footer>
   </div>
   <footer></footer>
