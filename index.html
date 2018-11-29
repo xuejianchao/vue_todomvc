@@ -33,7 +33,7 @@
             <button class="destroy" v-on:click="destroyTodo(todo)">×</button>
 
           </div>
-          <input type="text" class="edit" v-on:keyup.enter="doneEdit(todo)" v-model="todo.content">
+          <input type="text" class="edit" v-on:keyup.enter="doneEdit(todo)" v-todo-focus="editingTodo == todo" v-model="todo.content" v-on:blur="dropEdit(todo)">
         </li>
       </ul>
     </div>

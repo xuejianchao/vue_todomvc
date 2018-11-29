@@ -68,6 +68,7 @@ var todoApp = new Vue({
   methods: {
     startEdit: function (todo) {
       this.editingTodo = todo;
+      this.beforeEditCache = todo.content;
     },
     doneEdit: function (todo) {
       this.editingTodo = null;
@@ -75,6 +76,10 @@ var todoApp = new Vue({
       if (!todo.content) {
         destroyTodo(todo);
       }
+    },
+    dropEdit: function(todo){
+      this.editingTodo = null;
+      todo.content = this.beforeEditCache;
     },
     appendTodo: function (event) {
       let value = this.newTodo;
@@ -95,6 +100,13 @@ var todoApp = new Vue({
       //过滤出未完成的todo,然后赋给this.todos就行
       this.todos = this.todos.filter(filters.active);
       //如果要使用遍历-splice删除的话,因为在删除过程中数组的长度会改变,就有点麻烦
+    }
+  },
+  directives: {
+    'todo-focus':function(el,binding){
+      if(binding.value){
+        el.focus();
+      }
     }
   }
 })
