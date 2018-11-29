@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>todo playground</title>
+
+  <style>
+    #todo {
+      width: 300px;
+      margin: 0px auto;
+    }
+
+    .todo {
+      width: 100%;
+      border: 2px blueviolet solid;
+    }
+
+    .completeButton{
+      height:40px;
+      width:40px;
+      border-radius: 50%
+    }
+
+    .todo>p{
+      display:inline;
+    }
+  </style>
+
+  <script src="https://vuejs.org/js/vue.js"></script>
+</head>
+
+<body>
+  <div id="todoApp">
+    <header></header>
+    <div>
+      <ul>
+        <li class="todo" v-for="todo in todos">
+          <input class="completeButton" type="checkbox" v-model="todo.isCompleted">
+          <!-- ↑ 这里应该用v-model -->
+          <p>{{todo.content}}</p>
+          <button class="destroy" v-on:click="destroyTodo(todo)">删除</button>
+        </li>
+      </ul>
+    </div>
+    <footer v-if="todos.length">
+      <span><span>{{unCompleted}}</span> things left</span>
+      <button>All</button>
+      <button>Active</button>
+      <button>Completed</button>
+      <button v-if="completed" v-on:click="clearCompleted">Clear Completed</button>
+    </footer>
+  </div>
+  <footer></footer>
+
+  <script>
+    var todoApp = new Vue({
+      "el": "#todoApp",
+      data: {
+        todos: [{
+            isCompleted: true,
+            content: "something to do 1."
+          },
+          {
+            isCompleted: false,
+            content: "something to do 2."
+          },
+          {
+            isCompleted: true,
+            content: "something to do 3."
+          }
+        ],
+      },
+      computed: {
+        completed: function () {
+          let completedNum = 0;
+          for (todo of this.todos) {
+            if (todo.isCompleted === true) {
+              completedNum++;
+            }
+          }
+          return completedNum;
+        },
+        unCompleted: function () {
+          let unCompletedNum = 0;
+          for (todo of this.todos) {
+            if (todo.isCompleted === false) {
+              unCompletedNum++;
+            }
+          }
+          return unCompletedNum;
+        }
+      },
+      methods: {
+        destroyTodo: function (todo) {
+          this.todos.splice(this.todos.indexOf(todo), 1);
+          //从该todo的索引位置开始删除,删除一个元素
+        },
+        clearCompleted: function () {
+          //遍历todos,删除完成的todo
+          for (let i = 0; i < this.todos.length; i++) {
+            if (this.todos[i].isCompleted === true) {
+              this.todos.splice(i,1);
+            }
+          }
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>
