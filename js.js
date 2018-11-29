@@ -102,12 +102,12 @@ var todoApp = new Vue({
       //如果要使用遍历-splice删除的话,因为在删除过程中数组的长度会改变,就有点麻烦
     }
   },
-  directives: {
-    'todo-focus':function(el,binding){
-      if(binding.value){
-        //bindinf.value就是这个指令的值得计算结果.
-        el.focus();
-      }
-    }
-  }
+  directives: {  
+    'todo-focus':function(el,binding){  
+      if(binding.value){  
+        //bindinf.value就是这个指令的值得计算结果.  
+        el.focus();  
+      }  
+    }  
+  }  
 })
