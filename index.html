@@ -34,7 +34,7 @@
 
           </div>
           <input type="text" class="edit" v-on:keyup.enter="doneEdit(todo)" v-todo-focus="todo == editingTodo" v-model="todo.content"
-            v-on:blur="dropEdit(todo)">
+            v-on:blur="doneEdit(todo)">
           <!-- 注意,@blur的处理器不能写dropedit,因为doneedit的执行过程中,input会失去焦点,就会触发blur事件. -->
           <!-- 但是即使写成dropedit,开着devtool进行这个过程的话也会正常执行,奇了怪了 -->
         </li>
