@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>my todo list</title>
+
+  <link rel="stylesheet" href="./css.css">
+  <script src="https://vuejs.org/js/vue.js"></script>
+</head>
+
+<body>
+  <div id="todoApp">
+    <header>
+      <input class="new-todo" type="text" placeholder="What need to be done?" v-model="newTodo" v-on:keyup.enter="appendTodo">
+    </header>
+
+    <div class="main">
+      <input id="toggle-all" type="checkbox" v-model="allDone">
+      <label for="toggle-all"></label>
+
+      <ul id="todo-list">
+        <li class="todo" v-bind:class="{completed: todo.isCompleted, editing: editingTodo == todo}" v-for="todo in filteredTodos">
+          <div class="view">
+
+            <input class="toggle" id="" type="checkbox" v-model="todo.isCompleted">
+            <label for=".toggle">√</label>
+            
+            <p v-on:dblclick="startEdit(todo)">{{todo.content}}</p>
+            <button class="destroy" v-on:click="destroyTodo(todo)">×</button>
+
+          </div>
+          <input type="text" class="edit" v-on:keyup.enter="doneEdit(todo)" v-model="todo.content">
+        </li>
+      </ul>
+    </div>
+
+    <footer v-if="todos.length">
+      <span><span>{{unCompleted}}</span> things left</span>
+      <input name="visibility" type="radio" id="All" v-model="visibility" value="all">
+      <label for="All">All</label>
+      <input name="visibility" type="radio" id="Active" v-model="visibility" value="active">
+      <label for="Active">Active</label>
+      <input name="visibility" type="radio" id="Completed" v-model="visibility" value="completed">
+      <label for="Completed">Completed</label>
+      <button v-if="completed" v-on:click="clearCompleted">Clear Completed</button>
+    </footer>
+  </div>
+  <footer></footer>
+
+  <script src="./js.js"></script>
+</body>
+
+</html>
