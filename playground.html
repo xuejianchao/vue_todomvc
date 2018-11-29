@@ -27,6 +27,11 @@
     .todo>p{
       display:inline;
     }
+
+    li.completed>p{
+      color:"#ccc";
+      text-decoration:line-through;
+    }
   </style>
 
   <script src="https://vuejs.org/js/vue.js"></script>
@@ -37,9 +42,8 @@
     <header></header>
     <div>
       <ul>
-        <li class="todo" v-for="todo in todos">
+        <li class="todo" v-bind:class="{completed: todo.isCompleted}" v-for="todo in filteredTodos">
           <input class="completeButton" type="checkbox" v-model="todo.isCompleted">
-          <!-- ↑ 这里应该用v-model -->
           <p>{{todo.content}}</p>
           <button class="destroy" v-on:click="destroyTodo(todo)">删除</button>
         </li>
@@ -47,15 +51,29 @@
     </div>
     <footer v-if="todos.length">
       <span><span>{{unCompleted}}</span> things left</span>
-      <button>All</button>
-      <button>Active</button>
-      <button>Completed</button>
+      <input name="visibility" type="radio" id="All" v-model="visibility" value="all">
+      <label for="All">All</label>
+      <input name="visibility" type="radio" id="Active" v-model="visibility" value="active">
+      <label for="Active">Active</label>
+      <input name="visibility" type="radio" id="Completed" v-model="visibility" value="completed">
+      <label for="Completed">Completed</label>
       <button v-if="completed" v-on:click="clearCompleted">Clear Completed</button>
     </footer>
   </div>
   <footer></footer>
 
   <script>
+    var filters = {
+      all:function(todo){
+        return true
+      },
+      active:function(todo){
+        return todo.isCompleted === false;
+      },
+      completed:function(todo){
+        return todo.isCompleted === true;
+      }
+    }
     var todoApp = new Vue({
       "el": "#todoApp",
       data: {
@@ -72,6 +90,7 @@
             content: "something to do 3."
           }
         ],
+        visibility:'all',
       },
       computed: {
         completed: function () {
@@ -91,6 +110,9 @@
             }
           }
           return unCompletedNum;
+        },
+        filteredTodos: function() {
+          return this.todos.filter(filters[this.visibility]);
         }
       },
       methods: {
@@ -99,12 +121,9 @@
           //从该todo的索引位置开始删除,删除一个元素
         },
         clearCompleted: function () {
-          //遍历todos,删除完成的todo
-          for (let i = 0; i < this.todos.length; i++) {
-            if (this.todos[i].isCompleted === true) {
-              this.todos.splice(i,1);
-            }
-          }
+          //过滤出未完成的todo,然后赋给this.todos就行
+          this.todos = this.todos.filter(filters.active);
+          //如果要使用遍历-splice删除的话,因为在删除过程中数组的长度会改变,就有点麻烦
         }
       }
     })
