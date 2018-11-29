@@ -163,6 +163,7 @@ li.todo>div.view>.toggle:checked+label {
 
 li.todo>div.view>p {
   width: 100%;
+  box-sizing: border-box;
   display: inline-block;
   padding: 16px 16px 16px 60px;
   margin: 0;
